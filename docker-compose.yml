@@ -1,0 +1,27 @@
+version: '3'
+services:
+  frontend:
+    image: "node:10-alpine"
+    working_dir: /jobs-board/frontend
+    volumes:
+            - ./frontend:/jobs-board/frontend
+    ports:
+            - "3000:3000"
+    command: "yarn start"
+    depends_on:
+            - backend
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+            - ./tmp/db:/var/lib/postgresql/data
+  backend:
+    build:
+      context: ./backend
+    volumes:
+            - ./backend:/jobs-board/backend
+    ports:
+            - "3001:3001"
+    depends_on:
+            - db

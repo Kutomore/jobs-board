@@ -34,8 +34,6 @@ An small application that consumes and shows jobs from the github api
 2. `docker-compose exec backend rails db:create`
 
 3. `docker-compose exec backend rails db:migrate`
-
-4. `docker-compose exec backend rails db:seed`
   
 Make sure to run steps 1-4 on a separate terminal while you leave the command from step 1 running.
 

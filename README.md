@@ -1,7 +1,7 @@
 
-# Autocomplete application
+# Jobs board
 
-An small application that serves as an example of an autocomplete API using elasticsearch.
+An small application that consumes and shows jobs from the github api
   
 ### Prerequisites
 

@@ -7,7 +7,7 @@ services:
             - ./frontend:/jobs-board/frontend
     ports:
             - "3000:3000"
-    command: bash -c "yarn install && yarn start"
+    command: sh -c "yarn install && yarn start"
     depends_on:
             - backend
   db:

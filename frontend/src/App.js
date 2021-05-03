@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 import axios from "axios";
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, CardFooter
+  CardTitle, CardSubtitle, Button, CardFooter,
+  Input, InputGroup, Label, FormGroup, Form
 } from "reactstrap";
 
 class App extends Component {
   state = {
     jobs: [],
-    description: '',
-    location: ''
+    filters: {
+      location: '',
+      description: ''
+    }
   }
 
   fetchJobs(){
-    axios.get('http://localhost:3001/jobs').then((response) =>{
+    axios.get('http://localhost:3001/jobs', { params: this.state.filters }).then((response) =>{
         this.setState({
           jobs: response.data
         })
@@ -34,7 +37,6 @@ class App extends Component {
   }
 
   renderJobBlock(job) {
-    console.log(job)
     return (
       <div key={job.id} className="col-md-6 mt-3">
         <Card>
@@ -84,12 +86,41 @@ class App extends Component {
           </div>
           <div className={"col-md-3"}>
             <div className="row">
-              <Card className="mt-3">
-                <CardBody>
-                  <CardTitle tag="h5">Card title</CardTitle>
-                  <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle>
-                  <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                </CardBody>
+              <Card className="mt-3 col-md-12">
+                <Form>
+                  <FormGroup>
+                    <Label for="location">Choose a location</Label>
+                    <Input id="location" type="select" value={this.state.filters.location} onChange={(e) => {
+                      let { filters } = this.state
+                      filters.location = e.target.value
+                      this.setState(filters)
+                      this.fetchJobs()
+                    }}>
+                      <option/>
+                      <option>Chicago</option>
+                      <option>San Francisco</option>
+                      <option>Phoenix</option>
+                      <option>London</option>
+                      <option>Beijing</option>
+                      <option>Paris</option>
+                    </Input>
+                    <Label for="description">Choose a language</Label>
+                    <Input id="description" type="select" value={this.state.filters.description} onChange={(e) => {
+                      let { filters } = this.state
+                      filters.description = e.target.value
+                      this.setState(filters)
+                      this.fetchJobs()
+                    }}>
+                      <option/>
+                      <option>Javascript</option>
+                      <option>Java</option>
+                      <option>Python</option>
+                      <option>React</option>
+                      <option>Ruby</option>
+                      <option>Go</option>
+                    </Input>
+                  </FormGroup>
+                </Form>
               </Card>
             </div>
           </div>
